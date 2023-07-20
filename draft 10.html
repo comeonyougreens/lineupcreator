@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Soccer Team Formation</title>
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+  <style>
+    html {
+      font-family: "Permanent Marker";
+      font-size: 2em;
+    }
+
+    .container--section {
+      margin-bottom: 2em;
+    }
+
+    .container--main {
+      padding: 0.5em;
+      margin: 0 auto;
+      text-align: center;
+      width: 70%;
+
+      @media screen and (max-width: 415px) {
+        width: 80%;
+      }
+    }
+
+    .container--choice {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .container--field {
+      background-color: #206C3F;
+      border-radius: 10px;
+      color: #fff;
+      display: grid;
+      grid-auto-flow: column;
+      grid-gap: 10px;
+      grid-template-rows: repeat(12, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      padding: 1em;
+    }
+
+    .player, label {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    .player-goalkeeper {
+      grid-row: span 12;
+    }
+
+    .player-one, .player-two, .player-three, .player-four, .player-five, .player-six, .player-seven, .player-eight {
+      grid-row: span 3;
+    }
+
+    .player-nine, .player-ten {
+      grid-row: span 6;
+    }
+
+    input[type=radio] {
+      visibility: hidden;
+      position: absolute;
+
+      &:checked + span:before {
+        content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="86" height="79" viewBox="0 0 86 79"><path fill="none" stroke="#000" stroke-linecap="round" stroke-opacity=".763" stroke-width="4" d="M24.275 22.274c-4.16 5.035-8.976 9.593-12.48 15.105C-1.973 59.035-5.756 82.195 31.068 75.928c22.084-3.759 58.421-29.763 51.918-56.953-4.652-19.45-45.289-21.323-60.008-9.03C10.552 20.325 9.242 37.38 18.914 45.368"/></svg>');
+        position: absolute;
+        top: -10px;
+        left: -20px;
+      }
+    }
+
+    span {
+      cursor: pointer;
+      position: relative;
+    }
+
+    select {
+      width: 100%;
+      padding: 5px;
+      font-size: 1em;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const playerData = [
+        { number: 1, name: "Austin Causey", country: "USA" },
+        { number: 13, name: "Amal Knight", country: "Jamaica" },
+        { number: 44, name: "Luke Phillips", country: "USA" },
+        { number: 2, name: "Tate Robertson", country: "USA" },
+        { number: 3, name: "Owen Green", country: "USA" },
+        { number: 4, name: "Kimball Jackson", country: "USA" },
+        { number: 5, name: "Kaelon Fox", country: "USA" },
+        { number: 17, name: "Erick Ceja", country: "USA" },
+        { number: 20, name: "Diallo Irakoze", country: "Tanzania" },
+        { number: 26, name: "Cesar Murillo", country: "USA" },
+        { number: 33, name: "Franky Martinez", country: "USA" },
+        { number: 57, name: "Terique Mohammed", country: "Canada" },
+        { number: 7, name: "Jalen James", country: "USA" },
+        { number: 8, name: "Charlie Machell", country: "England" },
+        { number: 10, name: "Don Smart", country: "Jamaica" },
+        { number: 11, name: "Soso Kim", country: "USA" },
+        { number: 22, name: "Phila Dlamini", country: "South Africa" },
+        { number: 25, name: "Pierre Mané", country: "Senegal" },
+        { number: 9, name: "Willam Baynham", country: "Australia" },
+        { number: 14, name: "Khalid Balogun", country: "USA" },
+        { number: 18, name: "Drew Patterson", country: "USA" },
+        { number: 32, name: "Alasanne Ates Diouf", country: "Senegal" },
+        { number: 77, name: "Nico Brown", country: "USA" }
+      ];
+
+      const check = function() {
+        if (document.getElementById('442').checked) {
+          move442();
+        }
+
+        if (document.getElementById('433').checked) {
+          move433();
+        }
+
+        if (document.getElementById('343').checked) {
+          move343();
+        }
+      };
+
+      const move433 = function() {
+        const span3 = document.querySelectorAll(".player-one, .player-two, .player-three, .player-four");
+        const span4 = document.querySelectorAll(".player-five, .player-six, .player-seven, .player-eight, .player-nine, .player-ten");
+
+        for (let i = 0, len = span3.length; i < len; i++) {
+          span3[i].style.setProperty("grid-row", "span 3");
+        }
+
+        for (let i = 0, len = span4.length; i < len; i++) {
+          span4[i].style.setProperty("grid-row", "span 4");
+        }
+      };
+
+      const move442 = function() {
+        const span3 = document.querySelectorAll(".player-one, .player-two, .player-three, .player-four, .player-five, .player-six, .player-seven, .player-eight");
+        const span6 = document.querySelectorAll(".player-nine, .player-ten");
+
+        for (let i = 0, len = span3.length; i < len; i++) {
+          span3[i].style.setProperty("grid-row", "span 3");
+        }
+
+        for (let i = 0, len = span6.length; i < len; i++) {
+          span6[i].style.setProperty("grid-row", "span 6");
+        }
+      };
+
+      const move343 = function() {
+        const span3 = document.querySelectorAll(".player-four, .player-five, .player-six, .player-seven");
+        const span4 = document.querySelectorAll(".player-one, .player-two, .player-three, .player-eight, .player-nine, .player-ten");
+
+        for (let i = 0, len = span3.length; i < len; i++) {
+          span3[i].style.setProperty("grid-row", "span 3");
+        }
+
+        for (let i = 0, len = span4.length; i < len; i++) {
+          span4[i].style.setProperty("grid-row", "span 4");
+        }
+      };
+
+      const radioButtons = document.querySelectorAll('input[type="radio"]');
+      for (let i = 0; i < radioButtons.length; i++) {
+        radioButtons[i].addEventListener('click', check);
+      }
+
+      const playerDropdowns = document.querySelectorAll('.player-dropdown');
+      for (let i = 0; i < playerDropdowns.length; i++) {
+        playerDropdowns[i].addEventListener('change', function(event) {
+          const selectedPlayer = event.target.value;
+          const selectedDropdowns = document.querySelectorAll('.player-dropdown option:checked');
+          const allOptions = document.querySelectorAll('.player-dropdown option');
+
+          for (let j = 0; j < allOptions.length; j++) {
+            allOptions[j].disabled = false;
+          }
+
+          for (let j = 0; j < selectedDropdowns.length; j++) {
+            const selectedOption = selectedDropdowns[j].value;
+            for (let k = 0; k < allOptions.length; k++) {
+              if (allOptions[k].value === selectedOption && selectedOption !== '') {
+                allOptions[k].disabled = true;
+              }
+            }
+          }
+        });
+      }
+
+      const populateDropdowns = function() {
+        const dropdowns = document.querySelectorAll('.player-dropdown');
+        playerData.forEach(function(player) {
+          const option = document.createElement('option');
+          option.value = player.name;
+          option.textContent = `${player.number} ${player.name} ${player.country}`;
+          dropdowns.forEach(function(dropdown) {
+            dropdown.appendChild(option.cloneNode(true));
+          });
+        });
+      };
+
+      populateDropdowns();
+    });
+  </script>
+</head>
+<body>
+  <div class="container--main">
+    <div class="container--section">
+      <p>Choose your soccer team's formation:</p>
+      <div class="container--choice">
+        <label for="442">
+          <input checked type="radio" id="442" name="formation">
+          <span>442</span>
+        </label>
+        <label for="433">
+          <input type="radio" id="433" name="formation">
+          <span>433</span>
+        </label>
+        <label for="343">
+          <input type="radio" id="343" name="formation">
+          <span>343</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="container--field container--section">
+      <div class="player player-goalkeeper">
+        GK
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-one">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-two">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-three">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-four">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-five">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-six">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-seven">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-eight">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-nine">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="player player-ten">
+        x
+        <select class="player-dropdown">
+          <option value=""></option>
+        </select>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
